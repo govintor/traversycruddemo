@@ -1,16 +1,20 @@
 const express = require('express')
 const router = express.Router()
-// @desc    Login/Landing page
-// @route   GET /
-router.get ('/', (req,res)=> {
-    res.render('login',{
-    layout: 'login',
+const {ensureAuth, ensureGuest} = require('../middleware/auth')
+
+//@desc Login/landing page
+//@route GET /
+router.get('/', ensureGuest, (req,res) => {
+    res.render('login', {
+        layout: 'login',
+    })
 })
-})
-// @desc    Login/Dashboard
-// @route   GET / Dashboard
-router.get ('/dashboard', (req,res)=> {
-    res.render('Dashboard')
+
+//@desc Dashboard
+//@route GET /dashboard
+router.get('/dashboard', ensureAuth, (req,res) => {
+    console.log(req.user)
+    res.render('dashboard')
 })
 
 module.exports = router
