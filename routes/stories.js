@@ -34,7 +34,7 @@ router.get('/', ensureAuth, async (req,res) => {
         res.render('stories/index', {
             stories
         })
-    } catch (err) {
+    } catch (err) {``
         console.error(err)
         res.render('error/500')
     }
